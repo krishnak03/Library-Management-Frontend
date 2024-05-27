@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'library_management_system' title`, () => {
+  it(`should have the 'LMS-WEB' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('library_management_system');
+    expect(app.title).toEqual('LMS-WEB');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, library_management_system');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, LMS-WEB');
   });
 });
