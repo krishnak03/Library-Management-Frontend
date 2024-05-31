@@ -16,14 +16,46 @@
 
         </div>
         <div class="container-fluid">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button type="button" class="btn btn-success" style="margin-right: 5px;">Search</button>
+            <form #singUpForm="ngForm" class="d-flex">
+                <input name="search" [(ngModel)]="searchInput" class="form-control matInput me-2" type="search"
+                    placeholder="Search" aria-label="Search">
+
+                <button (click)="searchBooks()" type="button" class="btn btn-success"
+                    style="margin-right: 5px;">Search</button>
 
                 <button type="button" class="btn btn-secondary">
                     <em class="fa-solid fa-filter" style="font-size: 25px;color:white"></em>
                 </button>
             </form>
         </div>
+
+
+        <div *ngIf="showBooksTable" style="margin-top: 20px;">
+            <table class="table table-striped" d>
+                <thead>
+                    <tr>
+                        <th scope="col">Book Name</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Language</th>
+                        <th scope="col">Popularity</th>
+                        <th scope="col">Shelf</th>
+                        <th scope="col">Availability</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let book of this.bookSearchResults; let i = index">
+                    <tr>
+                        <td>{{book.book_name}}</td>
+                        <td>{{book.book_author}}</td>
+                        <td>{{book.book_genre}}</td>
+                        <td>{{book.book_lang}}</td>
+                        <td>{{book.book_popularity}}</td>
+                        <td>{{book.book_shelf_id}}</td>
+                        <td>Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
