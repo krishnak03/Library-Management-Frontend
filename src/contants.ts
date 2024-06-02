@@ -6,5 +6,8 @@ export const NavigationUrls = {
 }
 
 export const EndPointsRefs = {
-    BOOKS: 'books'
+    BOOKS: 'books',
+    SEARCH: 'books/search',
+    GENRES: 'genres',
+    LANGUAGES: 'languages',
 }

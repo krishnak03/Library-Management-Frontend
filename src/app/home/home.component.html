@@ -20,12 +20,37 @@
                 <input name="search" [(ngModel)]="searchInput" class="form-control matInput me-2" type="search"
                     placeholder="Search" aria-label="Search">
 
-                <button (click)="searchBooks()" type="button" class="btn btn-success"
-                    style="margin-right: 5px;">Search</button>
-
-                <button type="button" class="btn btn-secondary">
+                <button (click)="this.showFilters = true" type="button" class="btn btn-success" *ngIf="!showFilters"
+                    style="margin-right: 5px;">
                     <em class="fa-solid fa-filter" style="font-size: 25px;color:white"></em>
                 </button>
+
+                <div *ngIf="showFilters" class="dropdown" style="margin-right: 5px;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{ selectedGenre ? selectedGenre : 'Genres' }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let genre of this.allGenresList" (click)="selectGenre(genre)" class="dropdown-item">
+                            {{genre.genre_name}}</li>
+                    </ul>
+                </div>
+
+                <div *ngIf="showFilters" class="dropdown" style="margin-right: 5px;">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{ selectedLanguage ? selectedLanguage : 'Languages'}}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let language of this.allLanguagesList" (click)="selectLanguage(language)"
+                            class="dropdown-item">
+                            {{language.language_name}}</li>
+                    </ul>
+                </div>
+
+                <button (click)="search(searchInput,selectedGenre,selectedLanguage)" type="button"
+                    class="btn btn-success">Search</button>
+
             </form>
         </div>
 

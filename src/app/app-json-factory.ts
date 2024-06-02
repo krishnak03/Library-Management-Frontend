@@ -1,14 +1,15 @@
 export interface Book {
-    bookId: number;
-    bookName: string;
-    bookAuthor: string;
-    bookGenre: string;
-    bookLang: string;
-    bookShelfId: string;
-    bookQuantity: number;
-    bookAvailable: number;
-    bookPopularity: number;
+    book_id: number;
+    book_name: string;
+    book_author: string;
+    book_genre: string;
+    book_lang: string;
+    book_shelf_id: string;
+    book_quantity: number;
+    book_available: number;
+    book_popularity: number;
 }
+
 
 export interface BookSearchRequest {
     phrase: string;
@@ -32,13 +33,13 @@ export interface Borrow {
 }
 
 export interface Genre {
-    genreId: number;
-    genreName: string;
+    genre_id: number;
+    genre_name: string;
 }
 
 export interface Language {
-    languageId: number;
-    languageName: string;
+    language_id: number;
+    language_name: string;
 }
 
 export interface User {
