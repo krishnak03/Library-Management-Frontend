@@ -4,13 +4,18 @@ import { AppService } from '../app.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
-import { BLANK, EndPointsRefs, NavigationUrls } from '../../contants';
+import { BLANK, EndPointsRefs } from '../../contants';
 import { Book, Genre, Language } from '../app-json-factory'
+import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AdminLoginComponent } from '../admin-login/admin-login.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor],
+  imports: [FormsModule, NgIf, NgFor, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -37,6 +42,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private appService: AppService,
     private toaster: ToastrService,
+    private dialog: MatDialog,
+    // private dialogRef: MatDialogRef<AdminLoginComponent>
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +53,9 @@ export class HomeComponent implements OnInit {
   }
 
   adminLogin() {
-    this.router.navigate([NavigationUrls.ADMIN_PAGE]);
+    this.dialog.open(AdminLoginComponent, {
+      width: '500px',
+    });
   }
 
   getAllBooks() {
