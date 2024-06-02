@@ -17,8 +17,15 @@ import { Book, Genre, Language } from '../app-json-factory'
 export class HomeComponent implements OnInit {
 
   allBooksList: Book[] = [];
-  allLanguagesList: Language[] = [];
-  allGenresList: Genre[] = [];
+  allLanguagesList: Language[] = [{
+    'language_id': 0,
+    'language_name': 'Language'
+  }];
+
+  allGenresList: Genre[] = [{
+    'genre_id': 0,
+    'genre_name': 'Genre'
+  }];
   bookSearchResults: Book[] = [];
   showBooksTable = false;
   showFilters = false;
@@ -61,7 +68,7 @@ export class HomeComponent implements OnInit {
     this.appService.getDataFromServer(EndPointsRefs.GENRES).subscribe({
       next: (response) => {
         if (response.length > 0) {
-          this.allGenresList = response;
+          this.allGenresList = [...this.allGenresList, ...response]
         } else {
           this.toaster.error('Failed to load genres', 'Error!');
         }
@@ -76,7 +83,7 @@ export class HomeComponent implements OnInit {
     this.appService.getDataFromServer(EndPointsRefs.LANGUAGES).subscribe({
       next: (response) => {
         if (response.length > 0) {
-          this.allLanguagesList = response;
+          this.allLanguagesList = [...this.allLanguagesList, ...response]
         } else {
           this.toaster.error('Failed to load languages', 'Error!');
         }
@@ -88,10 +95,18 @@ export class HomeComponent implements OnInit {
   }
 
   selectLanguage(language: Language) {
+    if (language.language_name === 'Language') {
+      this.selectedLanguage = BLANK;
+      return;
+    }
     this.selectedLanguage = language.language_name;
   }
 
   selectGenre(genre: Genre) {
+    if (genre.genre_name === 'Genre') {
+      this.selectedGenre = BLANK;
+      return;
+    }
     this.selectedGenre = genre.genre_name;
   }
 
