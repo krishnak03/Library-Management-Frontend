@@ -1,52 +1,33 @@
-<div class="container-fluid d-flex align-items-center justify-content-center mt-3 mb-3">
-    <div class="card col-sm-6">
-        <div class="card-header text-center">
-            Admin Login
-        </div>
-        <div class="card-body">
-            <div class="mb-3 row">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">
-                        <i class="fa-solid fa-user"></i>
-                    </span>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                        aria-describedby="basic-addon1">
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">
-                        <i class="fa-solid fa-key"></i>
-                    </span>
-                    <input type="text" class="form-control" placeholder="Password" aria-label="Username"
-                        aria-describedby="basic-addon1">
-                </div>
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col text-center">
-                    <button type="button" class="btn btn-outline-success">Login</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="container-fluid bg-image" style="background-image: url('https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&w=600');
+              height: 80vh;background-size: cover;">
+    <mat-card style="margin-top: 130px;">
+        <mat-card-header class="justify-content-center">
+            <mat-card-title>Admin Login</mat-card-title>
+        </mat-card-header>
+        <form #adminLoginForm="ngForm" class="form-group" style="margin-left: 60px;">
 
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="col-10 d-flex flex-column justify-content-center mt-3 mb-3">
+                <mat-form-field class="example-full-width">
+                    <mat-icon matPrefix><i class="fa-solid fa-user"></i></mat-icon>
+                    <input type="text" matInput placeholder="Username" [(ngModel)]="username" #userNameModel="ngModel"
+                        [ngModelOptions]="{standalone: true}" required>
+                    <mat-error *ngIf="userNameModel.invalid && (userNameModel.dirty || userNameModel.touched)">
+                        Please Enter Username.
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field class="example-full-width">
+                    <mat-icon matPrefix><i class="fa-solid fa-key"></i></mat-icon>
+                    <input type="password" matInput placeholder="Password" [(ngModel)]="password"
+                        #passwordModel="ngModel" [ngModelOptions]="{standalone: true}" required>
+                    <mat-error *ngIf="passwordModel.invalid && (passwordModel.dirty || passwordModel.touched)">
+                        Please Enter Password.
+                    </mat-error>
+                </mat-form-field>
+
+                <button type="button" (click)="adminLogin(adminLoginForm)" class="btn btn-success">Login</button>
             </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div> -->
+        </form>
+    </mat-card>
+</div>
