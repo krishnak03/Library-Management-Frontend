@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card'
@@ -26,7 +26,7 @@ import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.comp
   templateUrl: './admin-login.component.html',
   styleUrl: './admin-login.component.scss'
 })
-export class AdminLoginComponent implements OnInit {
+export class AdminLoginComponent {
   username = '';
   password = '';
 
@@ -35,12 +35,7 @@ export class AdminLoginComponent implements OnInit {
     private toaster: ToastrService,
     private route: Router,
     public dialogRef: MatDialogRef<AdminDashboardComponent>,
-  ) {
-
-  }
-  ngOnInit(): void {
-
-  }
+  ) { }
 
   adminLogin(adminLoginForm: NgForm) {
     if (adminLoginForm.valid) {
@@ -60,7 +55,6 @@ export class AdminLoginComponent implements OnInit {
       });
     } else {
       this.toaster.error('Form not valid, please fill correct information', 'Error!');
-      return;
     }
   }
 }

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  MatDialogRef,
   MatDialogTitle,
   MatDialogContent,
   MatDialogActions,
