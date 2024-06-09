@@ -21,6 +21,6 @@ export const appConfig: ApplicationConfig = {
       progressAnimation: 'increasing',
       progressBar: true,
       closeButton: true
-    }), provideAnimationsAsync(), provideAnimationsAsync()
+    }), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync()
   ]
 };
