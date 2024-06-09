@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import { AppService } from './app/app.service';
 import { EndPointsRefs } from './contants';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import CryptoJS from 'crypto-js';
-
-const SECRET_KEY = CryptoJS.enc.Utf8.parse('3Dxgo1NroyWLeRctxPZ1RaXo7ufZcDod'); // Replace with your actual secret key
-const IV = CryptoJS.enc.Utf8.parse('0000000000000000'); // IV with 16 bytes of zeros
+import { environment } from './environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +14,6 @@ export class AuthService {
   constructor(
     private appService: AppService,
     private toaster: ToastrService,
-    private route: Router,
   ) { }
 
   login(username: string, password: string): Observable<any> {
@@ -52,9 +48,9 @@ export class AuthService {
 
 
   encrypt(plainText: string): string {
-    const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(plainText), SECRET_KEY, {
+    const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(plainText), CryptoJS.enc.Utf8.parse(environment.SECRET_KEY), {
       keySize: 256 / 8,
-      iv: IV,
+      iv: CryptoJS.enc.Utf8.parse(environment.IV),
       mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.Pkcs7
     });
@@ -62,9 +58,9 @@ export class AuthService {
   }
 
   decrypt(encryptedText: string): string {
-    const decrypted = CryptoJS.AES.decrypt(encryptedText, SECRET_KEY, {
+    const decrypted = CryptoJS.AES.decrypt(encryptedText, CryptoJS.enc.Utf8.parse(environment.SECRET_KEY), {
       keySize: 256 / 8,
-      iv: IV,
+      iv: CryptoJS.enc.Utf8.parse(environment.IV),
       mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.Pkcs7
     });

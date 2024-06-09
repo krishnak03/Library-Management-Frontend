@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { environment } from '../environments/environment.development';
 
-const BASE_URL = 'http://localhost:8080/'
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +12,21 @@ export class AppService {
   constructor(private http: HttpClient) { }
 
   getDataFromServer(endPoint: string, requestJson?: object): Observable<any> {
-    return this.http.get(BASE_URL + endPoint, requestJson).pipe(
+    return this.http.get(environment.BASE_URL + endPoint, requestJson).pipe(
       catchError(this.handleError)
     );
   }
 
   postDataToServer(endPoint: string, requestJson: object): Observable<any> {
-    return this.http.post(BASE_URL + endPoint, requestJson);
+    return this.http.post(environment.BASE_URL + endPoint, requestJson);
   }
 
   putDataToServer(endPoint: string, requestJson: object): Observable<any> {
-    return this.http.put(BASE_URL + endPoint, requestJson);
+    return this.http.put(environment.BASE_URL + endPoint, requestJson);
   }
 
   deleteDataFromServer(endPoint: string, requestJson: object): Observable<any> {
-    return this.http.delete(BASE_URL + endPoint, requestJson);
+    return this.http.delete(environment.BASE_URL + endPoint, requestJson);
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
