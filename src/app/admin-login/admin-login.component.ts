@@ -39,11 +39,6 @@ export class AdminLoginComponent {
 
 
   adminLogin() {
-    if (this.authService.isLoggedIn()) {
-      this.dialogRef ? this.dialogRef.close() : '';
-      this.route.navigate([NavigationUrls.ADMIN_DASHBOARD]);
-      return;
-    }
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         if (response.success) {

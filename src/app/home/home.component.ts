@@ -2,19 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
-import { BLANK, EndPointsRefs } from '../../contants';
+import { CommonModule } from '@angular/common';
+import { BLANK, EndPointsRefs, NavigationUrls } from '../../contants';
 import { Book, Genre, Language } from '../app-json-factory'
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AdminLoginComponent } from '../admin-login/admin-login.component';
+import { AuthService } from '../../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -41,6 +50,8 @@ export class HomeComponent implements OnInit {
     private appService: AppService,
     private toaster: ToastrService,
     private dialog: MatDialog,
+    private authService: AuthService,
+    private route: Router,
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +61,10 @@ export class HomeComponent implements OnInit {
   }
 
   adminLogin() {
+    if (this.authService.isLoggedIn()) {
+      this.route.navigate([NavigationUrls.ADMIN_DASHBOARD]);
+      return;
+    }
     this.dialog.open(AdminLoginComponent, {
       width: '500px',
     });

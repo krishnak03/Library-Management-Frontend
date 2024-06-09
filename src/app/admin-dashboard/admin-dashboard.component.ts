@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Component } from '@angular/core';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -31,8 +32,11 @@ import { Component } from '@angular/core';
 export class AdminDashboardComponent {
 
   constructor(
-
+    private authService: AuthService,
   ) { }
 
+  adminLogout() {
+    this.authService.logout();
+  }
 
 }
