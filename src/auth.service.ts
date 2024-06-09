@@ -16,11 +16,14 @@ export class AuthService {
     private toaster: ToastrService,
   ) { }
 
+  private SECRET_KEY = CryptoJS.enc.Base64.parse(environment.SECRET_KEY);
+  private IV = CryptoJS.enc.Hex.parse('00000000000000000000000000000000'); // Fixed IV of 16 null bytes
+
   login(username: string, password: string): Observable<any> {
     const jsonReq = {
-      "adminUsername": this.encrypt(username),
-      "adminPassword": this.encrypt(password)
-    }
+      "admin_username": this.encrypt(username),
+      "admin_password": this.encrypt(password)
+    };
     return this.appService.postDataToServer(EndPointsRefs.ADMIN_LOGIN, jsonReq).pipe(
       tap((response) => {
         if (response.success) {
@@ -45,12 +48,9 @@ export class AuthService {
     return sessionStorage.getItem('isLoggedIn') === 'true';
   }
 
-
-
   encrypt(plainText: string): string {
-    const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(plainText), CryptoJS.enc.Utf8.parse(environment.SECRET_KEY), {
-      keySize: 256 / 8,
-      iv: CryptoJS.enc.Utf8.parse(environment.IV),
+    const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(plainText), this.SECRET_KEY, {
+      iv: this.IV,
       mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.Pkcs7
     });
@@ -58,9 +58,8 @@ export class AuthService {
   }
 
   decrypt(encryptedText: string): string {
-    const decrypted = CryptoJS.AES.decrypt(encryptedText, CryptoJS.enc.Utf8.parse(environment.SECRET_KEY), {
-      keySize: 256 / 8,
-      iv: CryptoJS.enc.Utf8.parse(environment.IV),
+    const decrypted = CryptoJS.AES.decrypt(encryptedText, this.SECRET_KEY, {
+      iv: this.IV,
       mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.Pkcs7
     });
