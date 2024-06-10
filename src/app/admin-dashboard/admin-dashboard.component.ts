@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth.service';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationUrls } from '../../constants';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -25,12 +27,18 @@ import { AuthService } from '../../auth.service';
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss'
 })
 export class AdminDashboardComponent {
 
+  constants = {
+    NavigationUrls: NavigationUrls
+  }
   constructor(
     private authService: AuthService,
   ) { }

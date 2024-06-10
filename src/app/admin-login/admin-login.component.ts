@@ -9,7 +9,7 @@ import { MatDialogModule, MatDialogRef, } from '@angular/material/dialog';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
-import { NavigationUrls } from '../../contants';
+import { NavigationUrls } from '../../constants';
 
 @Component({
   selector: 'app-admin-login',

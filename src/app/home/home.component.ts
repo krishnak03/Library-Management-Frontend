@@ -3,7 +3,7 @@ import { AppService } from '../app.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BLANK, EndPointsRefs, NavigationUrls } from '../../contants';
+import { BLANK, EndPointsRefs, NavigationUrls } from '../../constants';
 import { Book, Genre, Language } from '../app-json-factory'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';

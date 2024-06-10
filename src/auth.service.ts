@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppService } from './app/app.service';
-import { BLANK, EndPointsRefs } from './contants';
+import { BLANK, EndPointsRefs } from './constants';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';

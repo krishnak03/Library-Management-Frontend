@@ -4,6 +4,8 @@ export const NavigationUrls = {
     HOME: 'Home',
     ADMIN_PAGE: 'admin-login',
     ADMIN_DASHBOARD: 'admin-dashboard',
+    USER_DASHBOARD: 'users',
+    BOOK_DASHBOARD: 'books'
 }
 
 export const EndPointsRefs = {
