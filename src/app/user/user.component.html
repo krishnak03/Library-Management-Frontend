@@ -1,1 +1,53 @@
-<p>user works!</p>
+<section>
+    <div class="example-button-row">
+        <button mat-button>Get User List</button>
+        <button (click)="toggleButton('addUserClicked')" mat-button color="primary">Add New User</button>
+        <button mat-button color="accent">Update Existing User</button>
+        <button mat-button color="warn">Delete a User</button>
+    </div>
+</section>
+<mat-divider></mat-divider>
+
+<!-- Add User -->
+
+<form *ngIf="addUserClicked" [formGroup]="addUserForm" class="form-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>User Information</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="col-md-6">
+                <mat-form-field class="full-width">
+                    <input formControlName="firstName" matInput placeholder="First name">
+                    <mat-error
+                        *ngIf="addUserForm.get('firstName')?.touched && addUserForm.get('firstName')?.errors?.['required']">
+                        First name is required!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="full-width">
+                    <input formControlName="phone" matInput placeholder="Phone">
+                    <mat-error
+                        *ngIf="addUserForm.get('phone')?.touched && addUserForm.get('phone')?.errors?.['required']">
+                        Phone no. is required!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="full-width">
+                    <input formControlName="email" matInput placeholder="Email">
+                    <mat-error
+                        *ngIf="addUserForm.get('email')?.touched && addUserForm.get('email')?.errors?.['required']">
+                        Email is required!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <button (click)="addUser()" mat-raised-button color="primary">Save</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
