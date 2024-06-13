@@ -51,14 +51,14 @@ export class UserComponent {
   ) { }
 
   addUserForm = this.form_builder.group({
-    firstName: [BLANK, [Validators.required, Validators.maxLength(30), Validators.minLength(3), Validators.pattern(Patterns.NAME)]],
+    name: [BLANK, [Validators.required, Validators.maxLength(30), Validators.minLength(3), Validators.pattern(Patterns.NAME)]],
     phone: [BLANK, [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern(Patterns.PHONE)]],
-    email: [BLANK, [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern(Patterns.EMAIL)]]
+    email: [BLANK, [Validators.required, Validators.pattern(Patterns.EMAIL)]]
   });
 
   addUser() {
     const requestJson = {
-      "user_name": this.addUserForm.controls.firstName.value,
+      "user_name": this.addUserForm.controls.name.value,
       "user_phone": this.addUserForm.controls.phone.value,
       "user_email": this.addUserForm.controls.email.value
     }
