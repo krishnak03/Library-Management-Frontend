@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth.service';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NavigationUrls } from '../../constants';
 
 @Component({
@@ -41,10 +41,23 @@ export class AdminDashboardComponent {
   }
   constructor(
     private authService: AuthService,
+    private route: Router,
   ) { }
 
   adminLogout() {
     this.authService.logout();
+  }
+
+  onClickAdminDashboard() {
+    this.route.navigate([NavigationUrls.ADMIN_DASHBOARD]);
+  }
+
+  onClickUserDashboard() {
+    this.route.navigate([NavigationUrls.USER_DASHBOARD]);
+  }
+
+  onClickBooksDashboard() {
+    this.route.navigate([NavigationUrls.BOOK_DASHBOARD]);
   }
 
 }

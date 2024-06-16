@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -14,6 +13,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { BLANK, EndPointsRefs, Patterns } from '../../constants';
 import { AppService } from '../app.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -32,23 +35,31 @@ import { ToastrService } from 'ngx-toastr';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
-export class UserComponent {
-
+export class UserComponent implements OnInit {
+  isMobile = false;
   getUserClicked = false;
   addUserClicked = false;
   updateUserClicked = false;
   deleteUserClicked = false;
 
-
   constructor(
     private form_builder: FormBuilder,
     private appService: AppService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
   ) { }
+
+  ngOnInit(): void {
+    this.appService.isMobileView.subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
+  }
 
   addUserForm = this.form_builder.group({
     name: [BLANK, [Validators.required, Validators.maxLength(30), Validators.minLength(3), Validators.pattern(Patterns.NAME)]],

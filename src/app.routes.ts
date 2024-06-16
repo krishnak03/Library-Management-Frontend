@@ -12,12 +12,13 @@ export const routes: Routes = [
     { path: BLANK, redirectTo: 'Home', pathMatch: 'full' },
     { path: 'Home', component: HomeComponent },
     { path: 'admin-login', component: AdminLoginComponent },
-    { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [authGuard],
+    {
+        path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [authGuard],
         children: [
             { path: 'users', component: UserComponent },
-            { path: 'books', component: BookComponent},
-          ]
-     }
+            { path: 'books', component: BookComponent },
+        ]
+    }
 ];
 
 export const appConfig: ApplicationConfig = {

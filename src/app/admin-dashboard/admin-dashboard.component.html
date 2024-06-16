@@ -5,13 +5,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand" routerLink='../admin-dashboard'>Admin Dashboard</a>
+            <a class="navbar-brand" type="button" (click)="onClickAdminDashboard()">Admin Dashboard</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="[constants.NavigationUrls.USER_DASHBOARD]" routerLinkActive="active">User</a>
+                    <a class="nav-link" type="button" (click)="onClickUserDashboard()"
+                        routerLinkActive="active">User</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="[constants.NavigationUrls.BOOK_DASHBOARD]" routerLinkActive="active">Book</a>
+                    <a class="nav-link" type="button" (click)="onClickBooksDashboard()"
+                        routerLinkActive="active">Book</a>
                 </li>
             </ul>
             <div class="d-flex">
