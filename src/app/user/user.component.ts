@@ -44,7 +44,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
   isMobile = false;
-  getUserClicked = false;
+  getUserClicked = true;
   addUserClicked = false;
   updateUserClicked = false;
   deleteUserClicked = false;
@@ -68,36 +68,52 @@ export class UserComponent implements OnInit {
   });
 
   addUser() {
-    const requestJson = {
-      "user_name": this.addUserForm.controls.name.value,
-      "user_phone": this.addUserForm.controls.phone.value,
-      "user_email": this.addUserForm.controls.email.value
-    }
-    this.appService.postDataToServer(EndPointsRefs.USERS, requestJson).subscribe({
-      next: (response) => {
-        if (response?.success) {
-          this.toaster.success(response.message, "Success");
-        }
-      },
-      error: (error) => {
-        this.toaster.error(error.message);
+    if (this.addUserForm.valid) {
+      const requestJson = {
+        "user_name": this.addUserForm.controls.name.value,
+        "user_phone": this.addUserForm.controls.phone.value,
+        "user_email": this.addUserForm.controls.email.value
       }
-    });
+      this.appService.postDataToServer(EndPointsRefs.USERS, requestJson).subscribe({
+        next: (response) => {
+          if (response?.success) {
+            this.toaster.success(response.message, "Success");
+          }
+        },
+        error: (error) => {
+          this.toaster.error(error.message);
+        }
+      });
+    } else {
+      this.toaster.error('Please fill the necessary details.', 'Error!');
+    }
   }
 
-  toggleButton(buttonName: string) {
+  changeActionForUser(buttonName: string) {
     switch (buttonName) {
       case 'addUserClicked':
         this.addUserClicked = true;
+        this.getUserClicked = false;
+        this.updateUserClicked = false;
+        this.deleteUserClicked = false;
         break;
       case 'getUserClicked':
         this.getUserClicked = true;
+        this.addUserClicked = false;
+        this.updateUserClicked = false;
+        this.deleteUserClicked = false;
         break;
       case 'updateUserClicked':
         this.updateUserClicked = true;
+        this.addUserClicked = false;
+        this.getUserClicked = false;
+        this.deleteUserClicked = false;
         break;
       case 'deleteUserClicked':
         this.deleteUserClicked = true;
+        this.addUserClicked = false;
+        this.getUserClicked = false;
+        this.updateUserClicked = false;
         break;
     }
   }
