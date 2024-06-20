@@ -17,6 +17,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Component, OnInit } from '@angular/core';
+import { User } from '../app-json-factory';
 
 @Component({
   selector: 'app-user',
@@ -48,6 +49,7 @@ export class UserComponent implements OnInit {
   addUserClicked = false;
   updateUserClicked = false;
   deleteUserClicked = false;
+  allUsersList: User[] = []
 
   constructor(
     private form_builder: FormBuilder,
@@ -59,20 +61,21 @@ export class UserComponent implements OnInit {
     this.appService.isMobileView.subscribe(isMobile => {
       this.isMobile = isMobile;
     });
+    this.getAllUsers();
   }
 
-  addUserForm = this.form_builder.group({
+  userForm = this.form_builder.group({
     name: [BLANK, [Validators.required, Validators.maxLength(30), Validators.minLength(3), Validators.pattern(Patterns.NAME)]],
     phone: [BLANK, [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern(Patterns.PHONE)]],
     email: [BLANK, [Validators.required, Validators.pattern(Patterns.EMAIL)]]
   });
 
   addUser() {
-    if (this.addUserForm.valid) {
+    if (this.userForm.valid) {
       const requestJson = {
-        "user_name": this.addUserForm.controls.name.value,
-        "user_phone": this.addUserForm.controls.phone.value,
-        "user_email": this.addUserForm.controls.email.value
+        "user_name": this.userForm.controls.name.value,
+        "user_phone": this.userForm.controls.phone.value,
+        "user_email": this.userForm.controls.email.value
       }
       this.appService.postDataToServer(EndPointsRefs.USERS, requestJson).subscribe({
         next: (response) => {
@@ -89,6 +92,21 @@ export class UserComponent implements OnInit {
     }
   }
 
+  getAllUsers() {
+    this.appService.getDataFromServer(EndPointsRefs.USERS).subscribe({
+      next: (response) => {
+        if (response.length > 0) {
+          this.allUsersList = response;
+        } else {
+          this.toaster.error('Failed to load books', 'Error!');
+        }
+      },
+      error: () => {
+        this.toaster.error('Something went wrong, Please try later.', 'Error!');
+      }
+    });
+  }
+
   changeActionForUser(buttonName: string) {
     switch (buttonName) {
       case 'addUserClicked':
@@ -102,6 +120,7 @@ export class UserComponent implements OnInit {
         this.addUserClicked = false;
         this.updateUserClicked = false;
         this.deleteUserClicked = false;
+        this.getAllUsers();
         break;
       case 'updateUserClicked':
         this.updateUserClicked = true;

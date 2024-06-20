@@ -7,7 +7,7 @@
         <mat-sidenav [opened]="!isMobile" [mode]="isMobile ? 'over' : 'side'" #snav class="example-sidenav">
             <mat-nav-list>
                 <ul>
-                    <a mat-list-item (click)="changeActionForUser('getUserClicked')">User Records</a>
+                    <a mat-list-item (click)="changeActionForUser('getUserClicked');">User Records</a>
                     <a mat-list-item (click)="changeActionForUser('addUserClicked')">Add User</a>
                     <a mat-list-item (click)="changeActionForUser('updateUserClicked')">Update User</a>
                     <a mat-list-item (click)="changeActionForUser('deleteUserClicked')">Delete User</a>
@@ -17,12 +17,29 @@
 
         <mat-sidenav-content>
             <!-- Get all users -->
-            <div *ngIf="getUserClicked">
-                get users table will be here
+            <div *ngIf="getUserClicked" class="container-fluid">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">User ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone No</th>
+                            <th scope="col">Email Id</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let user of this.allUsersList; let i = index">
+                        <tr>
+                            <td>{{user.user_id}}</td>
+                            <td>{{user.user_name}}</td>
+                            <td>{{user.user_phone}}</td>
+                            <td>{{user.user_email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <!-- Add user Code -->
             <div *ngIf="addUserClicked" class="container-fluid text-center">
-                <form [formGroup]=" addUserForm">
+                <form [formGroup]=" userForm">
                     <h3 for="addUserFields" style="margin: 40px 0px 40px;">Add User Information</h3>
                     <div id="addUserFields">
                         <div>
@@ -30,16 +47,16 @@
                                 <input formControlName="name" matInput placeholder="Name">
                                 <mat-icon matPrefix><em class="fa-solid fa-user fa-xs"></em></mat-icon>
                                 <mat-error
-                                    *ngIf="addUserForm.controls.name?.invalid && (addUserForm.controls.name?.dirty || addUserForm.controls.name?.touched)">
-                                    <span *ngIf="addUserForm.controls.name.hasError('required')">First name is
+                                    *ngIf="userForm.controls.name?.invalid && (userForm.controls.name?.dirty || userForm.controls.name?.touched)">
+                                    <span *ngIf="userForm.controls.name.hasError('required')">First name is
                                         required!</span>
                                     <span
-                                        *ngIf="addUserForm.controls.name.hasError('maxlength') && !addUserForm.controls.name.hasError('pattern')">
+                                        *ngIf="userForm.controls.name.hasError('maxlength') && !userForm.controls.name.hasError('pattern')">
                                         Maximum 30 characters allowed</span>
                                     <span
-                                        *ngIf="addUserForm.controls.name.hasError('minlength') && !addUserForm.controls.name.hasError('pattern')">
+                                        *ngIf="userForm.controls.name.hasError('minlength') && !userForm.controls.name.hasError('pattern')">
                                         Minimum 3 characters required</span>
-                                    <span *ngIf="addUserForm.controls.name.hasError('pattern')">Enter valid
+                                    <span *ngIf="userForm.controls.name.hasError('pattern')">Enter valid
                                         name</span>
                                 </mat-error>
                             </mat-form-field>
@@ -50,17 +67,17 @@
                                 <input formControlName="phone" matInput placeholder="Phone">
                                 <mat-icon matPrefix><em class="fa-solid fa-phone fa-xs"></em></mat-icon>
                                 <mat-error
-                                    *ngIf="addUserForm.controls.phone?.invalid && (addUserForm.controls.phone?.dirty || addUserForm.controls.phone?.touched)">
-                                    <span *ngIf="addUserForm.controls.phone.hasError('required')">Phone number
+                                    *ngIf="userForm.controls.phone?.invalid && (userForm.controls.phone?.dirty || userForm.controls.phone?.touched)">
+                                    <span *ngIf="userForm.controls.phone.hasError('required')">Phone number
                                         is
                                         required!</span>
                                     <span
-                                        *ngIf="addUserForm.controls.phone.hasError('maxlength') && !addUserForm.controls.phone.hasError('pattern')">
+                                        *ngIf="userForm.controls.phone.hasError('maxlength') && !userForm.controls.phone.hasError('pattern')">
                                         Maximum 10 digits allowed</span>
                                     <span
-                                        *ngIf="addUserForm.controls.phone.hasError('minlength') && !addUserForm.controls.phone.hasError('pattern')">
+                                        *ngIf="userForm.controls.phone.hasError('minlength') && !userForm.controls.phone.hasError('pattern')">
                                         Minimum 10 digits required</span>
-                                    <span *ngIf="addUserForm.controls.phone.hasError('pattern')">Enter valid
+                                    <span *ngIf="userForm.controls.phone.hasError('pattern')">Enter valid
                                         number</span>
                                 </mat-error>
                             </mat-form-field>
@@ -71,10 +88,10 @@
                                 <input formControlName="email" matInput placeholder="Email">
                                 <mat-icon matPrefix><em class="fa-solid fa-envelope fa-xs"></em></mat-icon>
                                 <mat-error
-                                    *ngIf="addUserForm.controls.email?.invalid && (addUserForm.controls.email?.dirty || addUserForm.controls.email?.touched)">
-                                    <span *ngIf="addUserForm.controls.email.hasError('required')">Email is
+                                    *ngIf="userForm.controls.email?.invalid && (userForm.controls.email?.dirty || userForm.controls.email?.touched)">
+                                    <span *ngIf="userForm.controls.email.hasError('required')">Email is
                                         required!</span>
-                                    <span *ngIf="addUserForm.controls.email.hasError('pattern')">Enter valid
+                                    <span *ngIf="userForm.controls.email.hasError('pattern')">Enter valid
                                         email</span>
                                 </mat-error>
                             </mat-form-field>
@@ -86,7 +103,7 @@
 
             <!-- Update User Information -->
             <div *ngIf="updateUserClicked" class="container-fluid text-center">
-                <form [formGroup]=" addUserForm">
+                <form [formGroup]=" userForm">
                     <h3 for="addUserFields" style="margin: 40px 0px 40px;">Update User Information</h3>
                     <div id="addUserFields">
                         <div>
@@ -94,16 +111,16 @@
                                 <input formControlName="name" matInput placeholder="Name">
                                 <mat-icon matPrefix><em class="fa-solid fa-user fa-xs"></em></mat-icon>
                                 <mat-error
-                                    *ngIf="addUserForm.controls.name?.invalid && (addUserForm.controls.name?.dirty || addUserForm.controls.name?.touched)">
-                                    <span *ngIf="addUserForm.controls.name.hasError('required')">First name is
+                                    *ngIf="userForm.controls.name?.invalid && (userForm.controls.name?.dirty || userForm.controls.name?.touched)">
+                                    <span *ngIf="userForm.controls.name.hasError('required')">First name is
                                         required!</span>
                                     <span
-                                        *ngIf="addUserForm.controls.name.hasError('maxlength') && !addUserForm.controls.name.hasError('pattern')">
+                                        *ngIf="userForm.controls.name.hasError('maxlength') && !userForm.controls.name.hasError('pattern')">
                                         Maximum 30 characters allowed</span>
                                     <span
-                                        *ngIf="addUserForm.controls.name.hasError('minlength') && !addUserForm.controls.name.hasError('pattern')">
+                                        *ngIf="userForm.controls.name.hasError('minlength') && !userForm.controls.name.hasError('pattern')">
                                         Minimum 3 characters required</span>
-                                    <span *ngIf="addUserForm.controls.name.hasError('pattern')">Enter valid
+                                    <span *ngIf="userForm.controls.name.hasError('pattern')">Enter valid
                                         name</span>
                                 </mat-error>
                             </mat-form-field>
@@ -114,17 +131,17 @@
                                 <input formControlName="phone" matInput placeholder="Phone">
                                 <mat-icon matPrefix><em class="fa-solid fa-phone fa-xs"></em></mat-icon>
                                 <mat-error
-                                    *ngIf="addUserForm.controls.phone?.invalid && (addUserForm.controls.phone?.dirty || addUserForm.controls.phone?.touched)">
-                                    <span *ngIf="addUserForm.controls.phone.hasError('required')">Phone number
+                                    *ngIf="userForm.controls.phone?.invalid && (userForm.controls.phone?.dirty || userForm.controls.phone?.touched)">
+                                    <span *ngIf="userForm.controls.phone.hasError('required')">Phone number
                                         is
                                         required!</span>
                                     <span
-                                        *ngIf="addUserForm.controls.phone.hasError('maxlength') && !addUserForm.controls.phone.hasError('pattern')">
+                                        *ngIf="userForm.controls.phone.hasError('maxlength') && !userForm.controls.phone.hasError('pattern')">
                                         Maximum 10 digits allowed</span>
                                     <span
-                                        *ngIf="addUserForm.controls.phone.hasError('minlength') && !addUserForm.controls.phone.hasError('pattern')">
+                                        *ngIf="userForm.controls.phone.hasError('minlength') && !userForm.controls.phone.hasError('pattern')">
                                         Minimum 10 digits required</span>
-                                    <span *ngIf="addUserForm.controls.phone.hasError('pattern')">Enter valid
+                                    <span *ngIf="userForm.controls.phone.hasError('pattern')">Enter valid
                                         number</span>
                                 </mat-error>
                             </mat-form-field>
@@ -135,10 +152,10 @@
                                 <input formControlName="email" matInput placeholder="Email">
                                 <mat-icon matPrefix><em class="fa-solid fa-envelope fa-xs"></em></mat-icon>
                                 <mat-error
-                                    *ngIf="addUserForm.controls.email?.invalid && (addUserForm.controls.email?.dirty || addUserForm.controls.email?.touched)">
-                                    <span *ngIf="addUserForm.controls.email.hasError('required')">Email is
+                                    *ngIf="userForm.controls.email?.invalid && (userForm.controls.email?.dirty || userForm.controls.email?.touched)">
+                                    <span *ngIf="userForm.controls.email.hasError('required')">Email is
                                         required!</span>
-                                    <span *ngIf="addUserForm.controls.email.hasError('pattern')">Enter valid
+                                    <span *ngIf="userForm.controls.email.hasError('pattern')">Enter valid
                                         email</span>
                                 </mat-error>
                             </mat-form-field>
@@ -150,63 +167,30 @@
 
             <!-- Delete User -->
             <div *ngIf="deleteUserClicked" class="container-fluid text-center">
-                <form [formGroup]=" addUserForm">
+                <form [formGroup]=" userForm">
                     <h3 for="addUserFields" style="margin: 40px 0px 40px;">Delete User</h3>
                     <div id="addUserFields">
                         <div>
                             <mat-form-field class="width-50">
-                                <input formControlName="name" matInput placeholder="Name">
+                                <input matInput placeholder="User ID">
                                 <mat-icon matPrefix><em class="fa-solid fa-user fa-xs"></em></mat-icon>
-                                <mat-error
-                                    *ngIf="addUserForm.controls.name?.invalid && (addUserForm.controls.name?.dirty || addUserForm.controls.name?.touched)">
-                                    <span *ngIf="addUserForm.controls.name.hasError('required')">First name is
+                                <!-- <mat-error
+                                    *ngIf="userForm.controls.name?.invalid && (userForm.controls.name?.dirty || userForm.controls.name?.touched)">
+                                    <span *ngIf="userForm.controls.name.hasError('required')">First name is
                                         required!</span>
                                     <span
-                                        *ngIf="addUserForm.controls.name.hasError('maxlength') && !addUserForm.controls.name.hasError('pattern')">
+                                        *ngIf="userForm.controls.name.hasError('maxlength') && !userForm.controls.name.hasError('pattern')">
                                         Maximum 30 characters allowed</span>
                                     <span
-                                        *ngIf="addUserForm.controls.name.hasError('minlength') && !addUserForm.controls.name.hasError('pattern')">
+                                        *ngIf="userForm.controls.name.hasError('minlength') && !userForm.controls.name.hasError('pattern')">
                                         Minimum 3 characters required</span>
-                                    <span *ngIf="addUserForm.controls.name.hasError('pattern')">Enter valid
+                                    <span *ngIf="userForm.controls.name.hasError('pattern')">Enter valid
                                         name</span>
-                                </mat-error>
+                                </mat-error> -->
                             </mat-form-field>
                         </div>
 
-                        <div>
-                            <mat-form-field class="width-50">
-                                <input formControlName="phone" matInput placeholder="Phone">
-                                <mat-icon matPrefix><em class="fa-solid fa-phone fa-xs"></em></mat-icon>
-                                <mat-error
-                                    *ngIf="addUserForm.controls.phone?.invalid && (addUserForm.controls.phone?.dirty || addUserForm.controls.phone?.touched)">
-                                    <span *ngIf="addUserForm.controls.phone.hasError('required')">Phone number
-                                        is
-                                        required!</span>
-                                    <span
-                                        *ngIf="addUserForm.controls.phone.hasError('maxlength') && !addUserForm.controls.phone.hasError('pattern')">
-                                        Maximum 10 digits allowed</span>
-                                    <span
-                                        *ngIf="addUserForm.controls.phone.hasError('minlength') && !addUserForm.controls.phone.hasError('pattern')">
-                                        Minimum 10 digits required</span>
-                                    <span *ngIf="addUserForm.controls.phone.hasError('pattern')">Enter valid
-                                        number</span>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
 
-                        <div>
-                            <mat-form-field class="width-50">
-                                <input formControlName="email" matInput placeholder="Email">
-                                <mat-icon matPrefix><em class="fa-solid fa-envelope fa-xs"></em></mat-icon>
-                                <mat-error
-                                    *ngIf="addUserForm.controls.email?.invalid && (addUserForm.controls.email?.dirty || addUserForm.controls.email?.touched)">
-                                    <span *ngIf="addUserForm.controls.email.hasError('required')">Email is
-                                        required!</span>
-                                    <span *ngIf="addUserForm.controls.email.hasError('pattern')">Enter valid
-                                        email</span>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
                     </div>
                     <button type="button" class="btn btn-success" (click)="addUser()">Save</button>
                 </form>

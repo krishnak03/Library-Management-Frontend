@@ -43,10 +43,10 @@ export interface Language {
 }
 
 export interface User {
-    userId: number;
-    userName: string;
-    userPhone: string;
-    userEmail: string;
+    user_id: number;
+    user_name: string;
+    user_phone: string;
+    user_email: string;
 }
 
 export interface ApiResponse {
